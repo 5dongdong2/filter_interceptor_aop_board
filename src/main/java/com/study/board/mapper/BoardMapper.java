@@ -13,5 +13,10 @@ import java.util.List;
 public interface BoardMapper {
 
     @SelectProvider(type = BoardSql.class, method = "findBoardBySearchKeyword")
-    public List<Board> findBoardList(@Param("boardSqlParameter") BoardSqlParameter boardSqlParameter);
+    public List<Board> findBoardList(@Param("searchType") String searchType,
+                                     @Param("searchKeyword") String searchKeyword,
+                                     @Param("offset") Integer offset,
+                                     @Param("perPage") Integer perPage);
+//    public List<Board> findBoardList(@Param("boardSqlParameter.getSearchKeyword()") BoardSqlParameter boardSqlParameter);
+
 }

@@ -20,6 +20,6 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<Board> findBoardList(BoardSqlParameter boardSqlParameter) {
-        return boardMapper.findBoardList(boardSqlParameter);
+        return boardMapper.findBoardList(boardSqlParameter.getSearchType(), boardSqlParameter.getSearchKeyword(), boardSqlParameter.getOffset(), boardSqlParameter.getPerPage());
     }
 }

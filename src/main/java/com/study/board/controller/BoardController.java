@@ -21,8 +21,9 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @GetMapping("/board/${searchType}/${searchKeyword}")
-    public List<Board> boardList(@PathVariable("searchType") String searchType, @PathVariable("searchKeyword") String searchKeyword, HttpServletRequest request) {
+    @GetMapping("/board/{searchKeyword}")
+    public List<Board> boardList(@PathVariable("searchKeyword") String searchKeyword, HttpServletRequest request) {
+        String searchType = request.getParameter("type");
         int curPage = Integer.parseInt(request.getParameter("page"));
         int perPage = 10;
         BoardSqlParameter boardSqlParameter = new BoardSqlParameter();
