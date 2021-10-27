@@ -7,8 +7,17 @@ import org.apache.ibatis.jdbc.SQL;
 @Slf4j
 public class BoardSql {
 
-    public String findBoardBySearchKeyword(@Param("searchType") String searchType, @Param("searchKeyword") String searchKeyword, @Param("offset") Integer offset, @Param("perPage") Integer perPage) {
-        SQL sql = new SQL(){{
+    public String findBoardList(@Param("offset") Integer offset, @Param("perPage") Integer perPage) {
+        SQL sql = new SQL()
+                .SELECT("*")
+                .FROM("board b")
+                .LIMIT("#{offset},#{perPage}");
+        log.info("sql={}", sql.toString());
+        return sql.toString();
+    }
+
+    public String findBoardListBySearchKeyword(@Param("searchType") String searchType, @Param("searchKeyword") String searchKeyword, @Param("offset") Integer offset, @Param("perPage") Integer perPage) {
+        SQL sql = new SQL() {{
             SELECT("*");
             FROM("board b");
             JOIN("member m ON b.member_idx=m.member_idx");
@@ -39,4 +48,6 @@ public class BoardSql {
             }
         }
     }
+
+
 }

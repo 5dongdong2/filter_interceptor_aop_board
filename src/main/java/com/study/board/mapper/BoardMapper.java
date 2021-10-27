@@ -12,11 +12,14 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
 
-    @SelectProvider(type = BoardSql.class, method = "findBoardBySearchKeyword")
-    public List<Board> findBoardList(@Param("searchType") String searchType,
+    @SelectProvider(type = BoardSql.class, method = "findBoardList")
+    public List<Board> findBoardList(@Param("offset") Integer offset,
+                                     @Param("perPage") Integer perPage);
+
+    @SelectProvider(type = BoardSql.class, method = "findBoardListBySearchKeyword")
+    public List<Board> findBoardListWithSearch(@Param("searchType") String searchType,
                                      @Param("searchKeyword") String searchKeyword,
                                      @Param("offset") Integer offset,
                                      @Param("perPage") Integer perPage);
-//    public List<Board> findBoardList(@Param("boardSqlParameter.getSearchKeyword()") BoardSqlParameter boardSqlParameter);
 
 }
