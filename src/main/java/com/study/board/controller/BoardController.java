@@ -1,14 +1,15 @@
 package com.study.board.controller;
 
 import com.study.board.domain.Board;
-import com.study.board.domain.BoardSqlParameter;
+import com.study.board.domain.PagingAndSearchingSqlParameter;
+import com.study.board.domain.WriteParameter;
 import com.study.board.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -34,7 +35,7 @@ public class BoardController {
         Integer curPage = Integer.parseInt(request.getParameter("page"));
         Integer perpage = 10;
 
-        BoardSqlParameter boardSqlParameter = new BoardSqlParameter();
+        PagingAndSearchingSqlParameter boardSqlParameter = new PagingAndSearchingSqlParameter();
         boardSqlParameter.setPerPage(perpage);
         boardSqlParameter.setOffset((curPage-1)*perpage);
         return boardService.findBoardList(boardSqlParameter);
@@ -52,11 +53,18 @@ public class BoardController {
         Integer curPage = Integer.parseInt(request.getParameter("page"));
         Integer perPage = 10;
 
-        BoardSqlParameter boardSqlParameter = new BoardSqlParameter();
+        PagingAndSearchingSqlParameter boardSqlParameter = new PagingAndSearchingSqlParameter();
         boardSqlParameter.setSearchType(searchType);
         boardSqlParameter.setSearchKeyword(searchKeyword);
         boardSqlParameter.setPerPage(perPage);
         boardSqlParameter.setOffset((curPage-1)*perPage);
         return boardService.findBoardListWithSearch(boardSqlParameter);
     }
+
+    @PostMapping("/board")
+    public void boardWrite(@Validated @RequestBody WriteParameter writeParameter, BindingResult bindingResult) {
+        log.info("writeParameter={}", writeParameter.toString());
+        boardService.writeBoard(writeParameter);
+    }
+
 }

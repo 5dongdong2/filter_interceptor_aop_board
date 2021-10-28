@@ -1,7 +1,8 @@
 package com.study.board.service;
 
 import com.study.board.domain.Board;
-import com.study.board.domain.BoardSqlParameter;
+import com.study.board.domain.PagingAndSearchingSqlParameter;
+import com.study.board.domain.WriteParameter;
 import com.study.board.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,17 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<Board> findBoardList(BoardSqlParameter boardSqlParameter) {
+    public List<Board> findBoardList(PagingAndSearchingSqlParameter boardSqlParameter) {
         return boardMapper.findBoardList(boardSqlParameter.getOffset(), boardSqlParameter.getPerPage());
     }
 
     @Override
-    public List<Board> findBoardListWithSearch(BoardSqlParameter boardSqlParameter) {
+    public List<Board> findBoardListWithSearch(PagingAndSearchingSqlParameter boardSqlParameter) {
         return boardMapper.findBoardListWithSearch(boardSqlParameter.getSearchType(), boardSqlParameter.getSearchKeyword(), boardSqlParameter.getOffset(), boardSqlParameter.getPerPage());
+    }
+
+    @Override
+    public void writeBoard(WriteParameter writeParameter) {
+        boardMapper.writeBoard(writeParameter);
     }
 }

@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class BoardSqlParameter {
+public class PagingAndSearchingSqlParameter {
     private String searchKeyword;
     private String searchType;
     private Integer perPage;

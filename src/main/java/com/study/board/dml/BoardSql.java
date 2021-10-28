@@ -1,5 +1,6 @@
 package com.study.board.dml;
 
+import com.study.board.domain.WriteParameter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
@@ -23,12 +24,12 @@ public class BoardSql {
             JOIN("member m ON b.member_idx=m.member_idx");
             LIMIT("#{offset},#{perPage}");
         }};
-        searchingQuery(searchType, searchKeyword, sql);
+        queryBySearchType(searchType, searchKeyword, sql);
         log.info("sql={}", sql.toString());
         return sql.toString();
     }
 
-    private void searchingQuery(String searchType, String searchKeyword, SQL sql) {
+    private void queryBySearchType(String searchType, String searchKeyword, SQL sql) {
         String[] type = {"b.board_title", "b.board_content", "m.member_name"};
         if (searchType.equals("title")) {
             sql.WHERE(type[0] + " LIKE CONCAT('%',#{searchKeyword},'%')");
@@ -49,5 +50,13 @@ public class BoardSql {
         }
     }
 
-
+    public String insert(@Param("writeSqlParameter") WriteParameter writeParameter) {
+        SQL sql = new SQL(){{
+            INSERT_INTO("board");
+            INTO_COLUMNS("member_idx", "board_title", "board_content", "board_create_date", "board_update_date");
+            INTO_VALUES("#{writeSqlParameter.member_idx}", "#{writeSqlParameter.board_title}", "#{writeSqlParameter.board_content}", "NOW()", "NOW()");
+        }};
+        log.info("sql={}", sql.toString());
+        return sql.toString();
+    }
 }
