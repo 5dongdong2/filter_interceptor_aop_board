@@ -30,6 +30,11 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public Board findBoardDetailByIdx(Long board_idx) {
+        return boardMapper.findBoardDetailByIdx(board_idx);
+    }
+
+    @Override
     public void writeBoard(WriteParameter writeParameter) {
         boardMapper.writeBoard(writeParameter);
     }

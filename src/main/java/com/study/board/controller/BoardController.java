@@ -61,7 +61,13 @@ public class BoardController {
         return boardService.findBoardListWithSearch(boardSqlParameter);
     }
 
-    @PostMapping("/board")
+    @GetMapping("/board/{board_idx}")
+    public Board boardDetail(@PathVariable("board_idx") String board_idx) {
+        return boardService.findBoardDetailByIdx(Long.valueOf(board_idx));
+//        return boardService.findBoardDetailByIdx(board_idx);
+    }
+
+    @PutMapping("/board")
     public void boardWrite(@Validated @RequestBody WriteParameter writeParameter, BindingResult bindingResult) {
         log.info("writeParameter={}", writeParameter.toString());
         boardService.writeBoard(writeParameter);

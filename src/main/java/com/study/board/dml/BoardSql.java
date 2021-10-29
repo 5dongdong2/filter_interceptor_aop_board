@@ -8,6 +8,12 @@ import org.apache.ibatis.jdbc.SQL;
 @Slf4j
 public class BoardSql {
 
+    /**
+     * 리스트(paging)
+     * @param offset
+     * @param perPage
+     * @return
+     */
     public String findBoardList(@Param("offset") Integer offset, @Param("perPage") Integer perPage) {
         SQL sql = new SQL()
                 .SELECT("*")
@@ -17,6 +23,14 @@ public class BoardSql {
         return sql.toString();
     }
 
+    /**
+     * 리스트(paging + search)
+     * @param searchType
+     * @param searchKeyword
+     * @param offset
+     * @param perPage
+     * @return
+     */
     public String findBoardListBySearchKeyword(@Param("searchType") String searchType, @Param("searchKeyword") String searchKeyword, @Param("offset") Integer offset, @Param("perPage") Integer perPage) {
         SQL sql = new SQL() {{
             SELECT("*");
@@ -50,6 +64,27 @@ public class BoardSql {
         }
     }
 
+    /**
+     * 상세페이지
+     * @param board_idx
+     * @return
+     */
+    public String findBoardDetailByIdx(@Param("board_idx") Long board_idx) {
+        SQL sql = new SQL() {{
+            SELECT("b.*, m.member_name");
+            FROM("board b");
+            JOIN("member m ON b.member_idx=m.member_idx");
+            WHERE("b.board_idx=#{board_idx}");
+        }};
+        log.info("sql={}", sql.toString());
+        return sql.toString();
+    }
+
+    /**
+     * 글 작성
+     * @param writeParameter
+     * @return
+     */
     public String insert(@Param("writeSqlParameter") WriteParameter writeParameter) {
         SQL sql = new SQL(){{
             INSERT_INTO("board");

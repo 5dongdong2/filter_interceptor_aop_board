@@ -23,6 +23,13 @@ public interface BoardService {
     public List<Board> findBoardListWithSearch(PagingAndSearchingSqlParameter boardSqlParameter);
 
     /**
+     * 상세페이지
+     * @param board_idx
+     * @return
+     */
+    public Board findBoardDetailByIdx(Long board_idx);
+    
+    /**
      * 게시글 작성
      * @param writeParameter
      */

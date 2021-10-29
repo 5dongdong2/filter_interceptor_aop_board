@@ -22,6 +22,9 @@ public interface BoardMapper {
                                      @Param("offset") Integer offset,
                                      @Param("perPage") Integer perPage);
 
+    @SelectProvider(type = BoardSql.class, method = "findBoardDetailByIdx")
+    public Board findBoardDetailByIdx(@Param("board_idx") Long board_idx);
+
     @SelectProvider(type = BoardSql.class, method = "insert")
     public void writeBoard(@Param("writeSqlParameter") WriteParameter writeParameter);
 }
