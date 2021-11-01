@@ -1,9 +1,8 @@
 package com.study.board.service;
 
-import com.study.board.domain.Board;
-import com.study.board.domain.PagingAndSearchingSqlParameter;
-import com.study.board.domain.WriteParameter;
+import com.study.board.domain.*;
 import com.study.board.mapper.BoardMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,12 +34,31 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public void writeBoard(WriteParameter writeParameter) {
-        boardMapper.writeBoard(writeParameter);
+    public void writeBoard(BoardWrite boardWrite) {
+        boardMapper.writeBoard(boardWrite);
     }
 
     @Override
     public void deleteBoard(Long board_idx) {
         boardMapper.deleteBoard(board_idx);
+    }
+
+    @Override
+    public void updateBoard(BoardUpdate boardUpdate) {
+        boardMapper.updateBoard(boardUpdate);
+    }
+
+    @Override
+    public void likeAndDislike(BoardLikeDislike boardLikeDislike) {
+        Integer check = boardMapper.checkLikeDislike(boardLikeDislike);
+        if (check >= 1) {
+            System.out.println("좋아요 취소");
+            boardMapper.deleteLikeDislike(boardLikeDislike);
+            boardMapper.updateBoardLikeDislike(boardLikeDislike);
+        } else if (check == 0) {
+            System.out.println("좋아요");
+            boardMapper.insertLikeDislike(boardLikeDislike);
+            boardMapper.updateBoardLikeDislike(boardLikeDislike);
+        }
     }
 }

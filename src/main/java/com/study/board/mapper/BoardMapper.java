@@ -2,7 +2,9 @@ package com.study.board.mapper;
 
 import com.study.board.dml.BoardSql;
 import com.study.board.domain.Board;
-import com.study.board.domain.WriteParameter;
+import com.study.board.domain.BoardLikeDislike;
+import com.study.board.domain.BoardUpdate;
+import com.study.board.domain.BoardWrite;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;
@@ -25,9 +27,25 @@ public interface BoardMapper {
     @SelectProvider(type = BoardSql.class, method = "findBoardDetailByIdx")
     public Board findBoardDetailByIdx(@Param("board_idx") Long board_idx);
 
-    @SelectProvider(type = BoardSql.class, method = "insert")
-    public void writeBoard(@Param("writeParameter") WriteParameter writeParameter);
+    @SelectProvider(type = BoardSql.class, method = "insertBoard")
+    public void writeBoard(@Param("boardWrite") BoardWrite boardWrite);
 
-    @SelectProvider(type = BoardSql.class, method = "delete")
+    @SelectProvider(type = BoardSql.class, method = "deleteBoard")
     public void deleteBoard(@Param("board_idx") Long board_idx);
+
+    @SelectProvider(type = BoardSql.class, method = "updateBoard")
+    public void updateBoard(@Param("boardUpdate") BoardUpdate boardUpdate);
+
+    @SelectProvider(type = BoardSql.class, method = "insertLikeDislike")
+    public void insertLikeDislike(@Param("boardLikeDislike") BoardLikeDislike boardLikeDislike);
+
+    @SelectProvider(type = BoardSql.class, method = "deleteLikeDislike")
+    public void deleteLikeDislike(@Param("boardLikeDislike") BoardLikeDislike boardLikeDislike);
+
+    @SelectProvider(type = BoardSql.class, method = "checkLikeDislike")
+    public Integer checkLikeDislike(@Param("boardLikeDislike") BoardLikeDislike boardLikeDislike);
+
+    @SelectProvider(type = BoardSql.class, method = "updateBoardLikeDislike")
+    public void updateBoardLikeDislike(@Param("boardLikeDislike") BoardLikeDislike boardLikeDislike);
+
 }

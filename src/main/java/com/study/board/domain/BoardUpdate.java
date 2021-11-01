@@ -9,10 +9,10 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @ToString
-public class WriteParameter {
+public class BoardUpdate {
 
     @NotBlank
-    private String member_idx;
+    private String board_idx;
 
     @NotBlank
     private String board_title;

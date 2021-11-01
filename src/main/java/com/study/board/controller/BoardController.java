@@ -1,12 +1,10 @@
 package com.study.board.controller;
 
-import com.study.board.domain.Board;
-import com.study.board.domain.PagingAndSearchingSqlParameter;
-import com.study.board.domain.WriteParameter;
+import com.study.board.domain.*;
+import com.study.board.dto.BoardLikeDislikeDto;
 import com.study.board.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -69,12 +67,36 @@ public class BoardController {
     }
 
     @PutMapping("/board")
-    public void writeBoard(@Validated @RequestBody WriteParameter writeParameter, BindingResult bindingResult) {
-        boardService.writeBoard(writeParameter);
+    public void writeBoard(@Validated @RequestBody BoardWrite boardWrite, BindingResult bindingResult) {
+        boardService.writeBoard(boardWrite);
     }
 
     @DeleteMapping("/board/{board_idx}")
     public void deleteBoard(@PathVariable("board_idx") String board_idx) {
         boardService.deleteBoard(Long.valueOf(board_idx));
+    }
+
+    @PutMapping("/board/{board_idx}")
+    public void updateBoard(@PathVariable("board_idx") String board_idx, @Validated @RequestBody BoardUpdate boardUpdate, BindingResult bindingResult) {
+        boardUpdate.setBoard_idx(board_idx);
+        boardService.updateBoard(boardUpdate);
+    }
+
+    @PostMapping("/board/like")
+    public void like(@Validated @RequestBody BoardLikeDislikeDto boardLikeDislikeDto, BindingResult bindingResult) {
+        BoardLikeDislike boardLikeDislike = new BoardLikeDislike();
+        boardLikeDislike.setMember_idx(Long.valueOf(boardLikeDislikeDto.getMember_idx()));
+        boardLikeDislike.setBoard_idx(Long.valueOf(boardLikeDislikeDto.getBoard_idx()));
+        boardLikeDislike.setBoard_like_dislike(String.valueOf(LikeAndDislike.LIKE.ordinal()));
+        boardService.likeAndDislike(boardLikeDislike);
+    }
+
+    @PostMapping("/board/dislike")
+    public void dislike(@Validated @RequestBody BoardLikeDislikeDto boardLikeDislikeDto, BindingResult bindingResult) {
+        BoardLikeDislike boardLikeDislike = new BoardLikeDislike();
+        boardLikeDislike.setMember_idx(Long.valueOf(boardLikeDislikeDto.getMember_idx()));
+        boardLikeDislike.setBoard_idx(Long.valueOf(boardLikeDislikeDto.getBoard_idx()));
+        boardLikeDislike.setBoard_like_dislike(String.valueOf(LikeAndDislike.DISLIKE.ordinal()));
+        boardService.likeAndDislike(boardLikeDislike);
     }
 }
