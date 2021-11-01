@@ -85,11 +85,25 @@ public class BoardSql {
      * @param writeParameter
      * @return
      */
-    public String insert(@Param("writeSqlParameter") WriteParameter writeParameter) {
+    public String insert(@Param("writeParameter") WriteParameter writeParameter) {
         SQL sql = new SQL(){{
             INSERT_INTO("board");
             INTO_COLUMNS("member_idx", "board_title", "board_content", "board_create_date", "board_update_date");
-            INTO_VALUES("#{writeSqlParameter.member_idx}", "#{writeSqlParameter.board_title}", "#{writeSqlParameter.board_content}", "NOW()", "NOW()");
+            INTO_VALUES("#{writeParameter.member_idx}", "#{writeParameter.board_title}", "#{writeParameter.board_content}", "NOW()", "NOW()");
+        }};
+        log.info("sql={}", sql.toString());
+        return sql.toString();
+    }
+
+    /**
+     * 글 삭제
+     * @param board_idx
+     * @return
+     */
+    public String delete(@Param("board_idx") Long board_idx) {
+        SQL sql = new SQL() {{
+            DELETE_FROM("board");
+            WHERE("board_idx=#{board_idx}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();

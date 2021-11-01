@@ -38,4 +38,9 @@ public class BoardServiceImpl implements BoardService {
     public void writeBoard(WriteParameter writeParameter) {
         boardMapper.writeBoard(writeParameter);
     }
+
+    @Override
+    public void deleteBoard(Long board_idx) {
+        boardMapper.deleteBoard(board_idx);
+    }
 }

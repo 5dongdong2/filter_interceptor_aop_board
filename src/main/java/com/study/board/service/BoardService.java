@@ -34,4 +34,10 @@ public interface BoardService {
      * @param writeParameter
      */
     public void writeBoard(WriteParameter writeParameter);
+
+    /**
+     * 게시글 삭제
+     * @param board_idx
+     */
+    public void deleteBoard(Long board_idx);
 }

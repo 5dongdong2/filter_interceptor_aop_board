@@ -18,13 +18,16 @@ public interface BoardMapper {
 
     @SelectProvider(type = BoardSql.class, method = "findBoardListBySearchKeyword")
     public List<Board> findBoardListWithSearch(@Param("searchType") String searchType,
-                                     @Param("searchKeyword") String searchKeyword,
-                                     @Param("offset") Integer offset,
-                                     @Param("perPage") Integer perPage);
+                                               @Param("searchKeyword") String searchKeyword,
+                                               @Param("offset") Integer offset,
+                                               @Param("perPage") Integer perPage);
 
     @SelectProvider(type = BoardSql.class, method = "findBoardDetailByIdx")
     public Board findBoardDetailByIdx(@Param("board_idx") Long board_idx);
 
     @SelectProvider(type = BoardSql.class, method = "insert")
-    public void writeBoard(@Param("writeSqlParameter") WriteParameter writeParameter);
+    public void writeBoard(@Param("writeParameter") WriteParameter writeParameter);
+
+    @SelectProvider(type = BoardSql.class, method = "delete")
+    public void deleteBoard(@Param("board_idx") Long board_idx);
 }
