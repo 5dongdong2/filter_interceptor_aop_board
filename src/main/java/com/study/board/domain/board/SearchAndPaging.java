@@ -10,6 +10,6 @@ import lombok.ToString;
 public class SearchAndPaging {
     private String searchKeyword;
     private String searchType;
-    private Integer perPage;
-    private Integer offset;
+    private Long perPage;
+    private Long offset;
 }

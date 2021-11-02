@@ -45,8 +45,8 @@ public class BoardAndCommentController {
      */
     @GetMapping("/boards")
     public List<Board> getBoards(HttpServletRequest request) {
-        Integer curPage = Integer.parseInt(request.getParameter("page"));
-        Integer perPage = 10;
+        Long curPage = Long.valueOf(request.getParameter("page"));
+        Long perPage = 10L;
 
         SearchAndPaging boardSqlParameter = new SearchAndPaging();
         boardSqlParameter.setPerPage(perPage);
@@ -64,8 +64,8 @@ public class BoardAndCommentController {
     public List<Board> getBoardsWithSearch(@PathVariable("searchKeyword") String searchKeyword,
                                            HttpServletRequest request) {
         String searchType = request.getParameter("type");
-        Integer curPage = Integer.parseInt(request.getParameter("page"));
-        Integer perPage = 10;
+        Long curPage = Long.valueOf(request.getParameter("page"));
+        Long perPage = 10L;
 
         SearchAndPaging searchAndPaging = new SearchAndPaging();
         searchAndPaging.setSearchType(searchType);
