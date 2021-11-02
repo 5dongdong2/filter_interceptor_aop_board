@@ -7,14 +7,14 @@ import java.util.List;
 public interface BoardService {
 
     /**
-     * page
+     * 게시글 리스트
      * @param boardSqlParameter
      * @return
      */
     public List<Board> findBoards(SearchAndPaging boardSqlParameter);
 
     /**
-     * 검색 + page
+     * 게시글 리스트 검색
      * @param boardSqlParameter
      * @return
      */
@@ -25,7 +25,7 @@ public interface BoardService {
      * @param board_idx
      * @return
      */
-    public Board findBoardDetailByIdx(Long board_idx);
+    public Board findBoardDetail(Long board_idx);
     
     /**
      * 게시글 작성
@@ -40,14 +40,14 @@ public interface BoardService {
     public void deleteBoard(Long board_idx);
 
     /**
-     * 게시글 업데이트
+     * 게시글 수정
      * @param boardUpdate
      */
     public void updateBoard(BoardUpdate boardUpdate);
 
     /**
-     * 좋아요, 싫어요
+     * 좋아요 및 싫어요
      * @param boardLikeDislike
      */
-    public void likeAndDislike(BoardLikeDislike boardLikeDislike);
+    public void likeAndDislikeBoard(BoardLikeDislike boardLikeDislike);
 }

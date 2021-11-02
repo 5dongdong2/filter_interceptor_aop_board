@@ -5,14 +5,15 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @ToString
 public class BoardWriteDto {
 
-    @NotBlank
-    private String member_idx;
+    @NotNull
+    private Long member_idx;
 
     @NotBlank
     private String board_title;

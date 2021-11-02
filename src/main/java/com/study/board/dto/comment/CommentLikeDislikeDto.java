@@ -4,20 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @ToString
-public class CommentWriteDto {
+public class CommentLikeDislikeDto {
 
     @NotNull
-    private Long board_idx;
+    private Long comment_idx;
 
-    @NotBlank
+    @NotNull
     private Long member_idx;
-
-    @NotBlank
-    private String comment_content;
 }

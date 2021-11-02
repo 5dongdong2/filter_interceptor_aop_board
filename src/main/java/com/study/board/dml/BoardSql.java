@@ -2,7 +2,7 @@ package com.study.board.dml;
 
 import com.study.board.domain.board.BoardLikeDislike;
 import com.study.board.domain.board.BoardUpdate;
-import com.study.board.dto.board.BoardWriteDto;
+import com.study.board.domain.board.BoardWrite;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
@@ -11,12 +11,12 @@ import org.apache.ibatis.jdbc.SQL;
 public class BoardSql {
 
     /**
-     * 리스트(paging)
+     * 게시글 리스트
      * @param offset
      * @param perPage
      * @return
      */
-    public String findBoardList(@Param("offset") Integer offset, @Param("perPage") Integer perPage) {
+    public String findBoards(@Param("offset") Integer offset, @Param("perPage") Integer perPage) {
         SQL sql = new SQL()
                 .SELECT("*")
                 .FROM("board b")
@@ -26,14 +26,17 @@ public class BoardSql {
     }
 
     /**
-     * 리스트(paging + search)
+     * 게시글 리스트(검색)
      * @param searchType
      * @param searchKeyword
      * @param offset
      * @param perPage
      * @return
      */
-    public String findBoardListBySearchKeyword(@Param("searchType") String searchType, @Param("searchKeyword") String searchKeyword, @Param("offset") Integer offset, @Param("perPage") Integer perPage) {
+    public String findBoardsWithSearch(@Param("searchType") String searchType,
+                                       @Param("searchKeyword") String searchKeyword,
+                                       @Param("offset") Integer offset,
+                                       @Param("perPage") Integer perPage) {
         SQL sql = new SQL() {{
             SELECT("*");
             FROM("board b");
@@ -77,7 +80,7 @@ public class BoardSql {
      * @param board_idx
      * @return
      */
-    public String findBoardDetailByIdx(@Param("board_idx") Long board_idx) {
+    public String findBoardDetail(@Param("board_idx") Long board_idx) {
         SQL sql = new SQL() {{
             SELECT("b.*, m.member_name");
             FROM("board b");
@@ -90,10 +93,10 @@ public class BoardSql {
 
     /**
      * 게시글 작성
-     * @param boardWriteDto
+     * @param boardWrite
      * @return
      */
-    public String insertBoard(@Param("boardWrite") BoardWriteDto boardWriteDto) {
+    public String insertBoard(@Param("boardWrite") BoardWrite boardWrite) {
         SQL sql = new SQL(){{
             INSERT_INTO("board");
             INTO_COLUMNS("member_idx", "board_title", "board_content", "board_create_date", "board_update_date");

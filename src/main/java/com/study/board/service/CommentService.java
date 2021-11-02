@@ -10,17 +10,17 @@ import java.util.List;
 public interface CommentService {
 
     /**
-     * 댓글 작성
-     * @param commentWrite
-     */
-    public void writeComment(CommentWrite commentWrite);
-
-    /**
      * 댓글 조회
      * @param board_idx
      * @return
      */
     public List<Comment> findComments(Long board_idx);
+
+    /**
+     * 댓글 작성
+     * @param commentWrite
+     */
+    public void writeComment(CommentWrite commentWrite);
 
     /**
      * 댓글 삭제

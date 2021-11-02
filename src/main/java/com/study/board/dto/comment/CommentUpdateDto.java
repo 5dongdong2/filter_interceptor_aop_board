@@ -1,4 +1,4 @@
-package com.study.board.dto;
+package com.study.board.dto.comment;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,11 +9,8 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @ToString
-public class BoardLikeDislikeDto {
+public class CommentUpdateDto {
 
     @NotBlank
-    private String board_idx;
-
-    @NotBlank
-    private String member_idx;
+    private String comment_content;
 }
