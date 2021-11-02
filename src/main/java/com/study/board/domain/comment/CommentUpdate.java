@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class CommentUpdate {
 
-    private Long board_idx;
+    private Long comment_idx;
 
     private String comment_content;
 
