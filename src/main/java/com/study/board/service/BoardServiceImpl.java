@@ -1,8 +1,8 @@
 package com.study.board.service;
 
-import com.study.board.domain.*;
+import com.study.board.domain.board.*;
+import com.study.board.dto.board.BoardWriteDto;
 import com.study.board.mapper.BoardMapper;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,12 +19,12 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<Board> findBoardList(PagingAndSearchingSqlParameter boardSqlParameter) {
+    public List<Board> findBoards(SearchAndPaging boardSqlParameter) {
         return boardMapper.findBoardList(boardSqlParameter.getOffset(), boardSqlParameter.getPerPage());
     }
 
     @Override
-    public List<Board> findBoardListWithSearch(PagingAndSearchingSqlParameter boardSqlParameter) {
+    public List<Board> findBoardsWithSearch(SearchAndPaging boardSqlParameter) {
         return boardMapper.findBoardListWithSearch(boardSqlParameter.getSearchType(), boardSqlParameter.getSearchKeyword(), boardSqlParameter.getOffset(), boardSqlParameter.getPerPage());
     }
 

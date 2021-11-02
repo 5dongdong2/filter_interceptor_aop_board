@@ -1,4 +1,4 @@
-package com.study.board.domain;
+package com.study.board.dto.comment;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,14 +9,14 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @ToString
-public class BoardUpdate {
+public class CommentWriteDto {
 
     @NotBlank
     private String board_idx;
 
     @NotBlank
-    private String board_title;
+    private String member_idx;
 
     @NotBlank
-    private String board_content;
+    private String comment_content;
 }

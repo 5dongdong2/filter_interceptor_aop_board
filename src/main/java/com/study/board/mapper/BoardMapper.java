@@ -1,10 +1,11 @@
 package com.study.board.mapper;
 
 import com.study.board.dml.BoardSql;
-import com.study.board.domain.Board;
-import com.study.board.domain.BoardLikeDislike;
-import com.study.board.domain.BoardUpdate;
-import com.study.board.domain.BoardWrite;
+import com.study.board.domain.board.Board;
+import com.study.board.domain.board.BoardLikeDislike;
+import com.study.board.domain.board.BoardUpdate;
+import com.study.board.domain.board.BoardWrite;
+import com.study.board.dto.board.BoardWriteDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.SelectProvider;

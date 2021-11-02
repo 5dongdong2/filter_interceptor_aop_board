@@ -1,6 +1,6 @@
 package com.study.board.service;
 
-import com.study.board.domain.*;
+import com.study.board.domain.board.*;
 
 import java.util.List;
 
@@ -11,14 +11,14 @@ public interface BoardService {
      * @param boardSqlParameter
      * @return
      */
-    public List<Board> findBoardList(PagingAndSearchingSqlParameter boardSqlParameter);
+    public List<Board> findBoards(SearchAndPaging boardSqlParameter);
 
     /**
      * 검색 + page
      * @param boardSqlParameter
      * @return
      */
-    public List<Board> findBoardListWithSearch(PagingAndSearchingSqlParameter boardSqlParameter);
+    public List<Board> findBoardsWithSearch(SearchAndPaging boardSqlParameter);
 
     /**
      * 상세페이지

@@ -1,4 +1,4 @@
-package com.study.board.domain;
+package com.study.board.dto.board;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @ToString
-public class BoardWrite {
+public class BoardWriteDto {
 
     @NotBlank
     private String member_idx;

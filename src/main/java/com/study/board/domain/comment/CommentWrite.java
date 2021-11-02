@@ -1,4 +1,4 @@
-package com.study.board.domain;
+package com.study.board.domain.comment;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,11 +7,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class BoardLikeDislike {
+public class CommentWrite {
 
     private Long board_idx;
 
     private Long member_idx;
 
-    private String board_like_dislike;
+    private String comment_content;
 }

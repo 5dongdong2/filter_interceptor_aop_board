@@ -1,8 +1,8 @@
 package com.study.board.dml;
 
-import com.study.board.domain.BoardLikeDislike;
-import com.study.board.domain.BoardUpdate;
-import com.study.board.domain.BoardWrite;
+import com.study.board.domain.board.BoardLikeDislike;
+import com.study.board.domain.board.BoardUpdate;
+import com.study.board.dto.board.BoardWriteDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
@@ -90,10 +90,10 @@ public class BoardSql {
 
     /**
      * 게시글 작성
-     * @param boardWrite
+     * @param boardWriteDto
      * @return
      */
-    public String insertBoard(@Param("boardWrite") BoardWrite boardWrite) {
+    public String insertBoard(@Param("boardWrite") BoardWriteDto boardWriteDto) {
         SQL sql = new SQL(){{
             INSERT_INTO("board");
             INTO_COLUMNS("member_idx", "board_title", "board_content", "board_create_date", "board_update_date");
