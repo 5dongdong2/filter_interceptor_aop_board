@@ -6,7 +6,6 @@ import com.study.board.domain.WriteParameter;
 import com.study.board.service.BoardService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -61,16 +60,24 @@ public class BoardController {
         return boardService.findBoardListWithSearch(boardSqlParameter);
     }
 
+    /**
+     * 상세페이지
+     * @param board_idx
+     * @return
+     */
     @GetMapping("/board/{board_idx}")
     public Board boardDetail(@PathVariable("board_idx") String board_idx) {
         return boardService.findBoardDetailByIdx(Long.valueOf(board_idx));
-//        return boardService.findBoardDetailByIdx(board_idx);
     }
 
+    /**
+     * 작성
+     * @param writeParameter
+     * @param bindingResult
+     */
     @PutMapping("/board")
     public void boardWrite(@Validated @RequestBody WriteParameter writeParameter, BindingResult bindingResult) {
         log.info("writeParameter={}", writeParameter.toString());
         boardService.writeBoard(writeParameter);
     }
-
 }
