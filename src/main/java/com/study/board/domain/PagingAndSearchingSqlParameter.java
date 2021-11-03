@@ -8,6 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PagingAndSearchingSqlParameter {
+
     private String searchKeyword;
     private String searchType;
     private Integer perPage;
