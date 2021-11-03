@@ -1,4 +1,4 @@
-package com.study.board.domain;
+package com.study.board.domain.board;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +10,7 @@ import java.sql.Date;
 @Setter
 @ToString
 public class Board {
+
     //board
     private Long board_idx;
     private String board_title;
@@ -19,6 +20,7 @@ public class Board {
     private Long board_views;
     private Date board_create_date;
     private Date board_update_date;
+
     //member
     private Long member_idx;
     private String member_name;

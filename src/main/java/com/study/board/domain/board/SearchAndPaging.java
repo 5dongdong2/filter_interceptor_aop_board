@@ -1,4 +1,4 @@
-package com.study.board.domain;
+package com.study.board.domain.board;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,10 +7,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class PagingAndSearchingSqlParameter {
-
+public class SearchAndPaging {
     private String searchKeyword;
     private String searchType;
-    private Integer perPage;
-    private Integer offset;
+    private Long perPage;
+    private Long offset;
 }

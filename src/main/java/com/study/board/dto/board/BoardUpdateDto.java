@@ -1,18 +1,19 @@
-package com.study.board.domain;
+package com.study.board.dto.board;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @ToString
-public class WriteParameter {
+public class BoardUpdateDto {
 
-    @NotBlank
-    private String member_idx;
+    @NotNull
+    private Long board_idx;
 
     @NotBlank
     private String board_title;
