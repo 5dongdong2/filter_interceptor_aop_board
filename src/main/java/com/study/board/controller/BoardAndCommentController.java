@@ -1,14 +1,12 @@
 package com.study.board.controller;
 
 import com.study.board.domain.LikeAndDislike;
-import com.study.board.domain.board.*;
+import com.study.board.domain.board.BoardLikeDislike;
 import com.study.board.domain.comment.Comment;
 import com.study.board.domain.comment.CommentLikeDislike;
 import com.study.board.domain.comment.CommentUpdate;
 import com.study.board.domain.comment.CommentWrite;
-import com.study.board.dto.board.BoardLikeDislikeDto;
-import com.study.board.dto.board.BoardUpdateDto;
-import com.study.board.dto.board.BoardWriteDto;
+import com.study.board.dto.board.*;
 import com.study.board.dto.comment.CommentLikeDislikeDto;
 import com.study.board.dto.comment.CommentUpdateDto;
 import com.study.board.dto.comment.CommentWriteDto;
@@ -44,14 +42,15 @@ public class BoardAndCommentController {
      * @return
      */
     @GetMapping("/boards")
-    public List<Board> getBoards(HttpServletRequest request) {
-        Long curPage = Long.valueOf(request.getParameter("page"));
+    public List<BoardDto> getBoards(HttpServletRequest request) {
+        int curPage = Integer.parseInt(request.getParameter("page"));
         Long perPage = 10L;
 
-        SearchAndPaging boardSqlParameter = new SearchAndPaging();
-        boardSqlParameter.setPerPage(perPage);
-        boardSqlParameter.setOffset((curPage - 1) * perPage);
-        return boardService.findBoards(boardSqlParameter);
+        SearchAndPagingDto searchAndPagingDto = SearchAndPagingDto.builder()
+                .perPage(perPage)
+                .offset(Long.valueOf((curPage - 1) * perPage))
+                .build();
+        return boardService.findBoards(searchAndPagingDto);
     }
 
     /**
@@ -61,18 +60,19 @@ public class BoardAndCommentController {
      * @return
      */
     @GetMapping("/boards/search/{searchKeyword}")
-    public List<Board> getBoardsWithSearch(@PathVariable("searchKeyword") String searchKeyword,
-                                           HttpServletRequest request) {
+    public List<BoardDto> getBoardsWithSearch(@PathVariable("searchKeyword") String searchKeyword,
+                                              HttpServletRequest request) {
         String searchType = request.getParameter("type");
         Long curPage = Long.valueOf(request.getParameter("page"));
         Long perPage = 10L;
 
-        SearchAndPaging searchAndPaging = new SearchAndPaging();
-        searchAndPaging.setSearchType(searchType);
-        searchAndPaging.setSearchKeyword(searchKeyword);
-        searchAndPaging.setPerPage(perPage);
-        searchAndPaging.setOffset((curPage - 1) * perPage);
-        return boardService.findBoardsWithSearch(searchAndPaging);
+        SearchAndPagingDto searchAndPagingDto = SearchAndPagingDto.builder()
+                .searchType(searchType)
+                .searchKeyword(searchKeyword)
+                .perPage(perPage)
+                .offset(Long.valueOf((curPage - 1) * perPage))
+                .build();
+        return boardService.findBoardsWithSearch(searchAndPagingDto);
     }
 
     /**
@@ -81,7 +81,7 @@ public class BoardAndCommentController {
      * @return
      */
     @GetMapping("/board/{board_idx}")
-    public Board getBoardDetail(@PathVariable("board_idx") Long board_idx) {
+    public BoardDto getBoardDetail(@PathVariable("board_idx") Long board_idx) {
         return boardService.findBoardDetail(board_idx);
     }
 
@@ -92,11 +92,7 @@ public class BoardAndCommentController {
      */
     @PostMapping("/board")
     public void writeBoard(@Validated @RequestBody BoardWriteDto boardWriteDto, BindingResult bindingResult) {
-        BoardWrite boardWrite = new BoardWrite();
-        boardWrite.setMember_idx(boardWriteDto.getMember_idx());
-        boardWrite.setBoard_title(boardWriteDto.getBoard_title());
-        boardWrite.setBoard_content(boardWriteDto.getBoard_content());
-        boardService.writeBoard(boardWrite);
+        boardService.writeBoard(boardWriteDto);
     }
 
     /**
@@ -117,11 +113,8 @@ public class BoardAndCommentController {
     @PutMapping("/board/{board_idx}")
     public void updateBoard(@Validated @RequestBody BoardUpdateDto boardUpdateDto, BindingResult bindingResult,
                             @PathVariable("board_idx") Long board_idx) {
-        BoardUpdate boardUpdate = new BoardUpdate();
-        boardUpdate.setBoard_idx(board_idx);
-        boardUpdate.setBoard_title(boardUpdateDto.getBoard_title());
-        boardUpdate.setBoard_content(boardUpdateDto.getBoard_content());
-        boardService.updateBoard(boardUpdate);
+        boardUpdateDto.setBoard_idx(board_idx);
+        boardService.updateBoard(boardUpdateDto);
     }
 
     /**
@@ -131,10 +124,11 @@ public class BoardAndCommentController {
      */
     @PostMapping("/board/like")
     public void likeBoard(@Validated @RequestBody BoardLikeDislikeDto boardLikeDislikeDto, BindingResult bindingResult) {
-        BoardLikeDislike boardLikeDislike = new BoardLikeDislike();
-        boardLikeDislike.setMember_idx(Long.valueOf(boardLikeDislikeDto.getMember_idx()));
-        boardLikeDislike.setBoard_idx(Long.valueOf(boardLikeDislikeDto.getBoard_idx()));
-        boardLikeDislike.setBoard_like_dislike(String.valueOf(LikeAndDislike.LIKE.ordinal()));
+        BoardLikeDislike boardLikeDislike = BoardLikeDislike.builder()
+                .board_idx(boardLikeDislikeDto.getBoard_idx())
+                .member_idx(boardLikeDislikeDto.getMember_idx())
+                .board_like_dislike(String.valueOf(LikeAndDislike.LIKE.ordinal()))
+                .build();
         boardService.likeAndDislikeBoard(boardLikeDislike);
     }
 
@@ -145,10 +139,11 @@ public class BoardAndCommentController {
      */
     @PostMapping("/board/dislike")
     public void dislikeBoard(@Validated @RequestBody BoardLikeDislikeDto boardLikeDislikeDto, BindingResult bindingResult) {
-        BoardLikeDislike boardLikeDislike = new BoardLikeDislike();
-        boardLikeDislike.setMember_idx(Long.valueOf(boardLikeDislikeDto.getMember_idx()));
-        boardLikeDislike.setBoard_idx(Long.valueOf(boardLikeDislikeDto.getBoard_idx()));
-        boardLikeDislike.setBoard_like_dislike(String.valueOf(LikeAndDislike.DISLIKE.ordinal()));
+        BoardLikeDislike boardLikeDislike = BoardLikeDislike.builder()
+                .board_idx(boardLikeDislikeDto.getBoard_idx())
+                .member_idx(boardLikeDislikeDto.getMember_idx())
+                .board_like_dislike(String.valueOf(LikeAndDislike.DISLIKE.ordinal()))
+                .build();
         boardService.likeAndDislikeBoard(boardLikeDislike);
     }
 
@@ -170,12 +165,13 @@ public class BoardAndCommentController {
      * @param board_idx
      */
     @PostMapping("/board/{board_idx}/comment")
-    public void writeComment(@Validated @ModelAttribute CommentWriteDto commentWriteDto, BindingResult bindingResult,
+    public void writeComment(@Validated @RequestBody CommentWriteDto commentWriteDto, BindingResult bindingResult,
                              @PathVariable("board_idx") Long board_idx) {
         CommentWrite commentWrite = new CommentWrite();
         commentWrite.setBoard_idx(board_idx);
         commentWrite.setMember_idx(commentWriteDto.getMember_idx());
         commentWrite.setComment_content(commentWriteDto.getComment_content());
+        System.out.println("commentWrite = " + commentWrite);
         commentService.writeComment(commentWrite);
     }
 

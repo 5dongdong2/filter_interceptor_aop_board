@@ -62,8 +62,8 @@ public class CommentSql {
     public String updateComment(@Param("commentUpdate") CommentUpdate commentUpdate) {
         SQL sql = new SQL() {{
             UPDATE("comment");
-            SET("comment_content=#{commentUpdate.comment_content}");
-            WHERE("comment_idx=#{commentUpdate.comment_update}");
+            SET("comment_content=#{commentUpdate.comment_content}, comment_update_date=NOW()");
+            WHERE("comment_idx=#{commentUpdate.comment_idx}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -77,7 +77,7 @@ public class CommentSql {
         SQL sql = new SQL() {{
             INSERT_INTO("comment_like_dislike");
             INTO_COLUMNS("comment_idx, member_idx, comment_like_dislike");
-            INTO_VALUES("#{commentLikeDislike.comment_idx},#{commentLikeDislike.member_idx},#{commentLikeDislike.comment_like_dislike)");
+            INTO_VALUES("#{commentLikeDislike.comment_idx},#{commentLikeDislike.member_idx},#{commentLikeDislike.comment_like_dislike}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();

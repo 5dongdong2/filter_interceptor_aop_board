@@ -1,16 +1,13 @@
-package com.study.board.domain.board;
+package com.study.board.dto.board;
 
-import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.sql.Date;
 
 @Getter
-@Setter
 @ToString
-public class Board {
+public class BoardDto {
 
     //board
     private Long board_idx;

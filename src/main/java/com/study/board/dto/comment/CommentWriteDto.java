@@ -15,7 +15,7 @@ public class CommentWriteDto {
     @NotNull
     private Long board_idx;
 
-    @NotBlank
+    @NotNull
     private Long member_idx;
 
     @NotBlank

@@ -1,13 +1,13 @@
-package com.study.board.domain.board;
+package com.study.board.dto.board;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Setter
+@Builder
 @ToString
-public class SearchAndPaging {
+public class SearchAndPagingDto {
     private String searchKeyword;
     private String searchType;
     private Long perPage;

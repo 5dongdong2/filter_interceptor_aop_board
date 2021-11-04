@@ -1,6 +1,10 @@
 package com.study.board.service;
 
 import com.study.board.domain.board.*;
+import com.study.board.dto.board.BoardDto;
+import com.study.board.dto.board.BoardUpdateDto;
+import com.study.board.dto.board.BoardWriteDto;
+import com.study.board.dto.board.SearchAndPagingDto;
 
 import java.util.List;
 
@@ -8,30 +12,30 @@ public interface BoardService {
 
     /**
      * 게시글 리스트
-     * @param boardSqlParameter
+     * @param searchAndPagingDto
      * @return
      */
-    public List<Board> findBoards(SearchAndPaging boardSqlParameter);
+    public List<BoardDto> findBoards(SearchAndPagingDto searchAndPagingDto);
 
     /**
      * 게시글 리스트 검색
-     * @param boardSqlParameter
+     * @param searchAndPagingDto
      * @return
      */
-    public List<Board> findBoardsWithSearch(SearchAndPaging boardSqlParameter);
+    public List<BoardDto> findBoardsWithSearch(SearchAndPagingDto searchAndPagingDto);
 
     /**
      * 상세페이지
      * @param board_idx
      * @return
      */
-    public Board findBoardDetail(Long board_idx);
+    public BoardDto findBoardDetail(Long board_idx);
     
     /**
      * 게시글 작성
-     * @param boardWrite
+     * @param boardWriteDto
      */
-    public void writeBoard(BoardWrite boardWrite);
+    public void writeBoard(BoardWriteDto boardWriteDto);
 
     /**
      * 게시글 삭제
@@ -41,9 +45,9 @@ public interface BoardService {
 
     /**
      * 게시글 수정
-     * @param boardUpdate
+     * @param boardUpdateDto
      */
-    public void updateBoard(BoardUpdate boardUpdate);
+    public void updateBoard(BoardUpdateDto boardUpdateDto);
 
     /**
      * 좋아요 및 싫어요

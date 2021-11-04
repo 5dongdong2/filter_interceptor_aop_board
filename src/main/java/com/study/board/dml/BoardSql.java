@@ -16,10 +16,11 @@ public class BoardSql {
      * @param perPage
      * @return
      */
-    public String findBoards(@Param("offset") Integer offset, @Param("perPage") Integer perPage) {
+    public String findBoards(@Param("offset") Long offset, @Param("perPage") Long perPage) {
         SQL sql = new SQL()
-                .SELECT("*")
+                .SELECT("b.*, m.member_name")
                 .FROM("board b")
+                .JOIN("member m ON b.member_idx=m.member_idx")
                 .LIMIT("#{offset},#{perPage}");
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -35,15 +36,15 @@ public class BoardSql {
      */
     public String findBoardsWithSearch(@Param("searchType") String searchType,
                                        @Param("searchKeyword") String searchKeyword,
-                                       @Param("offset") Integer offset,
-                                       @Param("perPage") Integer perPage) {
+                                       @Param("offset") Long offset,
+                                       @Param("perPage") Long perPage) {
         SQL sql = new SQL() {{
-            SELECT("*");
+            SELECT("b.*, m.member_name");
             FROM("board b");
             JOIN("member m ON b.member_idx=m.member_idx");
             LIMIT("#{offset},#{perPage}");
         }};
-        queryBySearchType(searchType, searchKeyword, sql);
+        querySelectorBySearchType(searchType, searchKeyword, sql);
         log.info("sql={}", sql.toString());
         return sql.toString();
     }
@@ -54,7 +55,7 @@ public class BoardSql {
      * @param searchKeyword
      * @param sql
      */
-    private void queryBySearchType(String searchType, String searchKeyword, SQL sql) {
+    private void querySelectorBySearchType(String searchType, String searchKeyword, SQL sql) {
         String[] type = {"b.board_title", "b.board_content", "m.member_name"};
         if (searchType.equals("title")) {
             sql.WHERE(type[0] + " LIKE CONCAT('%',#{searchKeyword},'%')");
@@ -141,13 +142,6 @@ public class BoardSql {
      * @return
      */
     public String insertLikeDislike(@Param("boardLikeDislike") BoardLikeDislike boardLikeDislike) {
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println(boardLikeDislike.toString());
-        System.out.println();
-        System.out.println();
-        System.out.println();
         SQL sql = new SQL() {{
             INSERT_INTO("board_like_dislike");
             INTO_COLUMNS("board_idx, member_idx, board_like_dislike");

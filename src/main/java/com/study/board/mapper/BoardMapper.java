@@ -1,7 +1,7 @@
 package com.study.board.mapper;
 
 import com.study.board.dml.BoardSql;
-import com.study.board.domain.board.Board;
+import com.study.board.dto.board.BoardDto;
 import com.study.board.domain.board.BoardLikeDislike;
 import com.study.board.domain.board.BoardUpdate;
 import com.study.board.domain.board.BoardWrite;
@@ -21,8 +21,8 @@ public interface BoardMapper {
      * @return
      */
     @SelectProvider(type = BoardSql.class, method = "findBoards")
-    public List<Board> findBoards(@Param("offset") Integer offset,
-                                  @Param("perPage") Integer perPage);
+    public List<BoardDto> findBoards(@Param("offset") Long offset,
+                                     @Param("perPage") Long perPage);
 
     /**
      * 게시글 리스트(검색)
@@ -33,10 +33,10 @@ public interface BoardMapper {
      * @return
      */
     @SelectProvider(type = BoardSql.class, method = "findBoardsWithSearch")
-    public List<Board> findBoardsWithSearch(@Param("searchType") String searchType,
-                                            @Param("searchKeyword") String searchKeyword,
-                                            @Param("offset") Integer offset,
-                                            @Param("perPage") Integer perPage);
+    public List<BoardDto> findBoardsWithSearch(@Param("searchType") String searchType,
+                                               @Param("searchKeyword") String searchKeyword,
+                                               @Param("offset") Long offset,
+                                               @Param("perPage") Long perPage);
 
     /**
      * 상세페이지
@@ -44,7 +44,7 @@ public interface BoardMapper {
      * @return
      */
     @SelectProvider(type = BoardSql.class, method = "findBoardDetail")
-    public Board findBoardDetail(@Param("board_idx") Long board_idx);
+    public BoardDto findBoardDetail(@Param("board_idx") Long board_idx);
 
     /**
      * 게시글 작성

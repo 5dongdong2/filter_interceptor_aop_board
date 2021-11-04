@@ -1,13 +1,11 @@
 package com.study.board.domain.board;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.NotBlank;
-
 @Getter
-@Setter
+@Builder
 @ToString
 public class BoardWrite {
 
