@@ -12,8 +12,8 @@ import javax.validation.constraints.NotNull;
 public class CommentLikeDislikeDto {
 
     @NotNull
-    private Long comment_idx;
+    private Long commentIdx;
 
     @NotNull
-    private Long member_idx;
+    private Long memberIdx;
 }

@@ -10,16 +10,16 @@ import java.sql.Date;
 public class BoardDto {
 
     //board
-    private Long board_idx;
-    private String board_title;
-    private String board_content;
-    private Long board_like;
-    private Long board_dislike;
+    private Long boardIdx;
+    private String boardTitle;
+    private String boardContent;
+    private Long boardLike;
+    private Long boardDislike;
     private Long board_views;
-    private Date board_create_date;
-    private Date board_update_date;
+    private Date boardCreateDate;
+    private Date boardUpdateDate;
 
     //member
-    private Long member_idx;
-    private String member_name;
+    private Long memberIdx;
+    private String memberName;
 }

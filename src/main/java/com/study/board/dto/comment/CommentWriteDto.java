@@ -13,11 +13,11 @@ import javax.validation.constraints.NotNull;
 public class CommentWriteDto {
 
     @NotNull
-    private Long board_idx;
+    private Long boardIdx;
 
     @NotNull
-    private Long member_idx;
+    private Long memberIdx;
 
     @NotBlank
-    private String comment_content;
+    private String commentContent;
 }

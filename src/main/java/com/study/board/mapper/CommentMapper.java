@@ -23,18 +23,18 @@ public interface CommentMapper {
 
     /**
      * 댓글 조회
-     * @param board_idx
+     * @param boardIdx
      * @return
      */
     @SelectProvider(type = CommentSql.class, method = "findComments")
-    public List<Comment> findComments(@Param("board_idx") Long board_idx);
+    public List<Comment> findComments(@Param("boardIdx") Long boardIdx);
 
     /**
      * 댓글 삭제
-     * @param comment_idx
+     * @param commentIdx
      */
     @SelectProvider(type = CommentSql.class, method = "deleteComment")
-    public void deleteComment(@Param("comment_idx") Long comment_idx);
+    public void deleteComment(@Param("commentIdx") Long commentIdx);
 
     /**
      * 댓글 수정
@@ -67,15 +67,15 @@ public interface CommentMapper {
 
     /**
      * 좋아요 수 update
-     * @param comment_idx
+     * @param commentIdx
      */
     @SelectProvider(type = CommentSql.class, method = "updateCommentLike")
-    public void updateCommentLike(@Param("comment_idx") Long comment_idx);
+    public void updateCommentLike(@Param("commentIdx") Long commentIdx);
 
     /**
      * 싫어요 수 update
-     * @param comment_idx
+     * @param commentIdx
      */
     @SelectProvider(type = CommentSql.class, method = "updateCommentDislike")
-    public void updateCommentDislike(@Param("comment_idx") Long comment_idx);
+    public void updateCommentDislike(@Param("commentIdx") Long commentIdx);
 }

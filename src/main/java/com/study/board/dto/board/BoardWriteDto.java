@@ -13,11 +13,11 @@ import javax.validation.constraints.NotNull;
 public class BoardWriteDto {
 
     @NotNull
-    private Long member_idx;
+    private Long memberIdx;
 
     @NotBlank
-    private String board_title;
+    private String boardTitle;
 
     @NotBlank
-    private String board_content;
+    private String boardContent;
 }

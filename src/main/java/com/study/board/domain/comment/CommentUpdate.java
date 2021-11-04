@@ -9,8 +9,8 @@ import lombok.ToString;
 @ToString
 public class CommentUpdate {
 
-    private Long comment_idx;
+    private Long commentIdx;
 
-    private String comment_content;
+    private String commentContent;
 
 }

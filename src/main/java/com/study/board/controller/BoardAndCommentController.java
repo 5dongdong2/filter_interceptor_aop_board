@@ -77,12 +77,12 @@ public class BoardAndCommentController {
 
     /**
      * 상세페이지
-     * @param board_idx
+     * @param boardIdx
      * @return
      */
-    @GetMapping("/board/{board_idx}")
-    public BoardDto getBoardDetail(@PathVariable("board_idx") Long board_idx) {
-        return boardService.findBoardDetail(board_idx);
+    @GetMapping("/board/{boardIdx}")
+    public BoardDto getBoardDetail(@PathVariable("boardIdx") Long boardIdx) {
+        return boardService.findBoardDetail(boardIdx);
     }
 
     /**
@@ -97,23 +97,23 @@ public class BoardAndCommentController {
 
     /**
      * 게시글 삭제
-     * @param board_idx
+     * @param boardIdx
      */
-    @DeleteMapping("/board/{board_idx}")
-    public void deleteBoard(@PathVariable("board_idx") Long board_idx) {
-        boardService.deleteBoard(board_idx);
+    @DeleteMapping("/board/{boardIdx}")
+    public void deleteBoard(@PathVariable("boardIdx") Long boardIdx) {
+        boardService.deleteBoard(boardIdx);
     }
 
     /**
      * 게시글 수정
-     * @param board_idx
+     * @param boardIdx
      * @param boardUpdateDto
      * @param bindingResult
      */
-    @PutMapping("/board/{board_idx}")
+    @PutMapping("/board/{boardIdx}")
     public void updateBoard(@Validated @RequestBody BoardUpdateDto boardUpdateDto, BindingResult bindingResult,
-                            @PathVariable("board_idx") Long board_idx) {
-        boardUpdateDto.setBoard_idx(board_idx);
+                            @PathVariable("boardIdx") Long boardIdx) {
+        boardUpdateDto.setBoardIdx(boardIdx);
         boardService.updateBoard(boardUpdateDto);
     }
 
@@ -125,9 +125,9 @@ public class BoardAndCommentController {
     @PostMapping("/board/like")
     public void likeBoard(@Validated @RequestBody BoardLikeDislikeDto boardLikeDislikeDto, BindingResult bindingResult) {
         BoardLikeDislike boardLikeDislike = BoardLikeDislike.builder()
-                .board_idx(boardLikeDislikeDto.getBoard_idx())
-                .member_idx(boardLikeDislikeDto.getMember_idx())
-                .board_like_dislike(String.valueOf(LikeAndDislike.LIKE.ordinal()))
+                .boardIdx(boardLikeDislikeDto.getBoardIdx())
+                .memberIdx(boardLikeDislikeDto.getMemberIdx())
+                .boardLikeDislike(String.valueOf(LikeAndDislike.LIKE.ordinal()))
                 .build();
         boardService.likeAndDislikeBoard(boardLikeDislike);
     }
@@ -140,9 +140,9 @@ public class BoardAndCommentController {
     @PostMapping("/board/dislike")
     public void dislikeBoard(@Validated @RequestBody BoardLikeDislikeDto boardLikeDislikeDto, BindingResult bindingResult) {
         BoardLikeDislike boardLikeDislike = BoardLikeDislike.builder()
-                .board_idx(boardLikeDislikeDto.getBoard_idx())
-                .member_idx(boardLikeDislikeDto.getMember_idx())
-                .board_like_dislike(String.valueOf(LikeAndDislike.DISLIKE.ordinal()))
+                .boardIdx(boardLikeDislikeDto.getBoardIdx())
+                .memberIdx(boardLikeDislikeDto.getMemberIdx())
+                .boardLikeDislike(String.valueOf(LikeAndDislike.DISLIKE.ordinal()))
                 .build();
         boardService.likeAndDislikeBoard(boardLikeDislike);
     }
@@ -150,52 +150,52 @@ public class BoardAndCommentController {
     /*Comment*/
     /**
      * 댓글 조회
-     * @param board_idx
+     * @param boardIdx
      * @return
      */
-    @GetMapping("/board/{board_idx}/comment")
-    public List<Comment> getComments(@Validated @PathVariable("board_idx") Long board_idx) {
-        return commentService.findComments(board_idx);
+    @GetMapping("/board/{boardIdx}/comment")
+    public List<Comment> getComments(@Validated @PathVariable("boardIdx") Long boardIdx) {
+        return commentService.findComments(boardIdx);
     }
 
     /**
      * 댓글 작성
      * @param commentWriteDto
      * @param bindingResult
-     * @param board_idx
+     * @param boardIdx
      */
-    @PostMapping("/board/{board_idx}/comment")
+    @PostMapping("/board/{boardIdx}/comment")
     public void writeComment(@Validated @RequestBody CommentWriteDto commentWriteDto, BindingResult bindingResult,
-                             @PathVariable("board_idx") Long board_idx) {
+                             @PathVariable("boardIdx") Long boardIdx) {
         CommentWrite commentWrite = new CommentWrite();
-        commentWrite.setBoard_idx(board_idx);
-        commentWrite.setMember_idx(commentWriteDto.getMember_idx());
-        commentWrite.setComment_content(commentWriteDto.getComment_content());
+        commentWrite.setBoardIdx(boardIdx);
+        commentWrite.setMemberIdx(commentWriteDto.getMemberIdx());
+        commentWrite.setCommentContent(commentWriteDto.getCommentContent());
         System.out.println("commentWrite = " + commentWrite);
         commentService.writeComment(commentWrite);
     }
 
     /**
      * 댓글 삭제
-     * @param comment_idx
+     * @param commentIdx
      */
-    @DeleteMapping("/comment/{comment_idx}")
-    public void deleteComment(@PathVariable("comment_idx") Long comment_idx) {
-        commentService.deleteComment(comment_idx);
+    @DeleteMapping("/comment/{commentIdx}")
+    public void deleteComment(@PathVariable("commentIdx") Long commentIdx) {
+        commentService.deleteComment(commentIdx);
     }
 
     /**
      * 댓글 수정
      * @param commentUpdateDto
      * @param bindingResult
-     * @param comment_idx
+     * @param commentIdx
      */
-    @PutMapping("/comment/{comment_idx}")
+    @PutMapping("/comment/{commentIdx}")
     public void updateComment(@Validated @RequestBody CommentUpdateDto commentUpdateDto, BindingResult bindingResult,
-                              @PathVariable("comment_idx") Long comment_idx) {
+                              @PathVariable("commentIdx") Long commentIdx) {
         CommentUpdate commentUpdate = new CommentUpdate();
-        commentUpdate.setComment_idx(comment_idx);
-        commentUpdate.setComment_content(commentUpdateDto.getComment_content());
+        commentUpdate.setCommentIdx(commentIdx);
+        commentUpdate.setCommentContent(commentUpdateDto.getCommentContent());
         commentService.updateComment(commentUpdate);
     }
 
@@ -206,9 +206,9 @@ public class BoardAndCommentController {
     @PostMapping("/comment/like")
     public void likeComment(@Validated @RequestBody CommentLikeDislikeDto commentLikeDislikeDto) {
         CommentLikeDislike commentLikeDislike = new CommentLikeDislike();
-        commentLikeDislike.setMember_idx(commentLikeDislikeDto.getMember_idx());
-        commentLikeDislike.setComment_idx(commentLikeDislikeDto.getComment_idx());
-        commentLikeDislike.setComment_like_dislike(String.valueOf(LikeAndDislike.LIKE.ordinal()));
+        commentLikeDislike.setMemberIdx(commentLikeDislikeDto.getMemberIdx());
+        commentLikeDislike.setCommentIdx(commentLikeDislikeDto.getCommentIdx());
+        commentLikeDislike.setCommentLikeDislike(String.valueOf(LikeAndDislike.LIKE.ordinal()));
         commentService.likeComment(commentLikeDislike);
     }
 
@@ -219,9 +219,9 @@ public class BoardAndCommentController {
     @PostMapping("/comment/dislike")
     public void dislikeComment(@Validated @RequestBody CommentLikeDislikeDto commentLikeDislikeDto) {
         CommentLikeDislike commentLikeDislike = new CommentLikeDislike();
-        commentLikeDislike.setMember_idx(commentLikeDislikeDto.getMember_idx());
-        commentLikeDislike.setComment_idx(commentLikeDislikeDto.getComment_idx());
-        commentLikeDislike.setComment_like_dislike(String.valueOf(LikeAndDislike.DISLIKE.ordinal()));
+        commentLikeDislike.setMemberIdx(commentLikeDislikeDto.getMemberIdx());
+        commentLikeDislike.setCommentIdx(commentLikeDislikeDto.getCommentIdx());
+        commentLikeDislike.setCommentLikeDislike(String.valueOf(LikeAndDislike.DISLIKE.ordinal()));
         commentService.dislikeComment(commentLikeDislike);
     }
 }

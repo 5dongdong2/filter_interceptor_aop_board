@@ -11,10 +11,10 @@ public interface CommentService {
 
     /**
      * 댓글 조회
-     * @param board_idx
+     * @param boardIdx
      * @return
      */
-    public List<Comment> findComments(Long board_idx);
+    public List<Comment> findComments(Long boardIdx);
 
     /**
      * 댓글 작성
@@ -24,9 +24,9 @@ public interface CommentService {
 
     /**
      * 댓글 삭제
-     * @param comment_idx
+     * @param commentIdx
      */
-    public void deleteComment(Long comment_idx);
+    public void deleteComment(Long commentIdx);
 
     /**
      * 댓글 수정

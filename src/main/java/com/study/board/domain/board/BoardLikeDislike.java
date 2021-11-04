@@ -9,9 +9,9 @@ import lombok.ToString;
 @ToString
 public class BoardLikeDislike {
 
-    private Long board_idx;
+    private Long boardIdx;
 
-    private Long member_idx;
+    private Long memberIdx;
 
-    private String board_like_dislike;
+    private String boardLikeDislike;
 }

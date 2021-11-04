@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class CommentLikeDislike {
 
-    private Long comment_idx;
-    private Long member_idx;
-    private String comment_like_dislike;
+    private Long commentIdx;
+    private Long memberIdx;
+    private String commentLikeDislike;
 }

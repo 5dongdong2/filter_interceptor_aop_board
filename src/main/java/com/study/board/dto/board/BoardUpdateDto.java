@@ -13,11 +13,11 @@ import javax.validation.constraints.NotNull;
 public class BoardUpdateDto {
 
     @NotNull
-    private Long board_idx;
+    private Long boardIdx;
 
     @NotBlank
-    private String board_title;
+    private String boardTitle;
 
     @NotBlank
-    private String board_content;
+    private String boardContent;
 }

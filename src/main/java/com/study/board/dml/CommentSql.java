@@ -19,7 +19,7 @@ public class CommentSql {
         SQL sql = new SQL() {{
             INSERT_INTO("comment");
             INTO_COLUMNS("board_idx, member_idx, comment_content, comment_create_date, comment_update_date");
-            INTO_VALUES("#{commentWrite.board_idx},#{commentWrite.member_idx},#{commentWrite.comment_content},NOW(),NOW()");
+            INTO_VALUES("#{commentWrite.boardIdx},#{commentWrite.memberIdx},#{commentWrite.commentContent},NOW(),NOW()");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -27,15 +27,15 @@ public class CommentSql {
 
     /**
      * 댓글 조회
-     * @param board_idx
+     * @param boardIdx
      * @return
      */
-    public String findComments(@Param("board_idx") Long board_idx) {
+    public String findComments(@Param("boardIdx") Long boardIdx) {
         SQL sql = new SQL() {{
             SELECT("c.*, m.member_name");
             FROM("comment c");
             JOIN("member m ON c.member_idx=m.member_idx");
-            WHERE("c.board_idx=#{board_idx}");
+            WHERE("c.board_idx=#{boardIdx}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -43,13 +43,13 @@ public class CommentSql {
 
     /**
      * 댓글 삭제
-     * @param comment_idx
+     * @param commentIdx
      * @return
      */
-    public String deleteComment(@Param("comment_idx") Long comment_idx) {
+    public String deleteComment(@Param("commentIdx") Long commentIdx) {
         SQL sql = new SQL() {{
             DELETE_FROM("comment");
-            WHERE("comment_idx=#{comment_idx}");
+            WHERE("comment_idx=#{commentIdx}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -62,8 +62,8 @@ public class CommentSql {
     public String updateComment(@Param("commentUpdate") CommentUpdate commentUpdate) {
         SQL sql = new SQL() {{
             UPDATE("comment");
-            SET("comment_content=#{commentUpdate.comment_content}, comment_update_date=NOW()");
-            WHERE("comment_idx=#{commentUpdate.comment_idx}");
+            SET("comment_content=#{commentUpdate.commentContent}, comment_update_date=NOW()");
+            WHERE("comment_idx=#{commentUpdate.commentIdx}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -77,7 +77,7 @@ public class CommentSql {
         SQL sql = new SQL() {{
             INSERT_INTO("comment_like_dislike");
             INTO_COLUMNS("comment_idx, member_idx, comment_like_dislike");
-            INTO_VALUES("#{commentLikeDislike.comment_idx},#{commentLikeDislike.member_idx},#{commentLikeDislike.comment_like_dislike}");
+            INTO_VALUES("#{commentLikeDislike.commentIdx},#{commentLikeDislike.memberIdx},#{commentLikeDislike.commentLikeDislike}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -91,7 +91,7 @@ public class CommentSql {
     public String deleteLikeAndDislike(@Param("commentLikeDislike") CommentLikeDislike commentLikeDislike) {
         SQL sql = new SQL() {{
             DELETE_FROM("comment_like_dislike");
-            WHERE("member_idx=#{commentLikeDislike.member_idx} AND comment_idx=#{commentLikeDislike.comment_idx} AND comment_like_dislike=#{commentLikeDislike.comment_like_dislike}");
+            WHERE("member_idx=#{commentLikeDislike.memberIdx} AND comment_idx=#{commentLikeDislike.commentIdx} AND comment_like_dislike=#{commentLikeDislike.commentLikeDislike}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -106,7 +106,7 @@ public class CommentSql {
         SQL sql = new SQL() {{
             SELECT("COUNT(*)");
             FROM("comment_like_dislike");
-            WHERE("member_idx=#{commentLikeDislike.member_idx} AND comment_idx=#{commentLikeDislike.comment_idx} AND comment_like_dislike=#{commentLikeDislike.comment_like_dislike}");
+            WHERE("member_idx=#{commentLikeDislike.memberIdx} AND comment_idx=#{commentLikeDislike.commentIdx} AND comment_like_dislike=#{commentLikeDislike.commentLikeDislike}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -114,14 +114,14 @@ public class CommentSql {
 
     /**
      * 좋아요 수 update
-     * @param comment_idx
+     * @param commentIdx
      * @return
      */
-    public String updateCommentLike(@Param("comment_idx") Long comment_idx) {
+    public String updateCommentLike(@Param("commentIdx") Long commentIdx) {
         SQL sql = new SQL() {{
             UPDATE("comment");
-            SET("comment_like=(SELECT COUNT(*) FROM comment_like_dislike WHERE comment_idx=#{comment_idx} AND comment_like_dislike='1')");
-            WHERE("comment_idx=#{comment_idx}");
+            SET("comment_like=(SELECT COUNT(*) FROM comment_like_dislike WHERE comment_idx=#{commentIdx} AND comment_like_dislike='1')");
+            WHERE("comment_idx=#{commentIdx}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -129,14 +129,14 @@ public class CommentSql {
 
     /**
      * 싫어요 수 update
-     * @param comment_idx
+     * @param commentIdx
      * @return
      */
-    public String updateCommentDislike(@Param("comment_idx") Long comment_idx) {
+    public String updateCommentDislike(@Param("commentIdx") Long commentIdx) {
         SQL sql = new SQL() {{
             UPDATE("comment");
-            SET("comment_like=(SELECT COUNT(*) FROM comment_like_dislike WHERE comment_idx=#{comment_idx} AND comment_like_dislike='0')");
-            WHERE("comment_idx=#{comment_idx}");
+            SET("comment_like=(SELECT COUNT(*) FROM comment_like_dislike WHERE comment_idx=#{commentIdx} AND comment_like_dislike='0')");
+            WHERE("comment_idx=#{commentIdx}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();

@@ -12,5 +12,5 @@ import javax.validation.constraints.NotBlank;
 public class CommentUpdateDto {
 
     @NotBlank
-    private String comment_content;
+    private String commentContent;
 }

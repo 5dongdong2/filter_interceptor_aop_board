@@ -78,15 +78,15 @@ public class BoardSql {
 
     /**
      * 상세페이지
-     * @param board_idx
+     * @param boardIdx
      * @return
      */
-    public String findBoardDetail(@Param("board_idx") Long board_idx) {
+    public String findBoardDetail(@Param("boardIdx") Long boardIdx) {
         SQL sql = new SQL() {{
             SELECT("b.*, m.member_name");
             FROM("board b");
             JOIN("member m ON b.member_idx=m.member_idx");
-            WHERE("b.board_idx=#{board_idx}");
+            WHERE("b.board_idx=#{boardIdx}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -101,7 +101,7 @@ public class BoardSql {
         SQL sql = new SQL(){{
             INSERT_INTO("board");
             INTO_COLUMNS("member_idx", "board_title", "board_content", "board_create_date", "board_update_date");
-            INTO_VALUES("#{boardWrite.member_idx}", "#{boardWrite.board_title}", "#{boardWrite.board_content}", "NOW()", "NOW()");
+            INTO_VALUES("#{boardWrite.memberIdx}", "#{boardWrite.boardTitle}", "#{boardWrite.boardContent}", "NOW()", "NOW()");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -109,13 +109,13 @@ public class BoardSql {
 
     /**
      * 게시글 삭제
-     * @param board_idx
+     * @param boardIdx
      * @return
      */
-    public String deleteBoard(@Param("board_idx") Long board_idx) {
+    public String deleteBoard(@Param("boardIdx") Long boardIdx) {
         SQL sql = new SQL() {{
             DELETE_FROM("board");
-            WHERE("board_idx=#{board_idx}");
+            WHERE("board_idx=#{boardIdx}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -129,8 +129,8 @@ public class BoardSql {
     public String updateBoard(@Param("boardUpdate") BoardUpdate boardUpdate) {
         SQL sql = new SQL() {{
             UPDATE("board");
-            SET("board_title=#{boardUpdate.board_title}, board_content=#{boardUpdate.board_content}, board_update_date=NOW()");
-            WHERE("board_idx=#{boardUpdate.board_idx}");
+            SET("board_title=#{boardUpdate.boardTitle}, board_content=#{boardUpdate.boardContent}, board_update_date=NOW()");
+            WHERE("board_idx=#{boardUpdate.boardIdx}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -145,7 +145,7 @@ public class BoardSql {
         SQL sql = new SQL() {{
             INSERT_INTO("board_like_dislike");
             INTO_COLUMNS("board_idx, member_idx, board_like_dislike");
-            INTO_VALUES("#{boardLikeDislike.board_idx}, #{boardLikeDislike.member_idx}, #{boardLikeDislike.board_like_dislike}");
+            INTO_VALUES("#{boardLikeDislike.boardIdx}, #{boardLikeDislike.memberIdx}, #{boardLikeDislike.boardLikeDislike}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -159,7 +159,7 @@ public class BoardSql {
     public String deleteLikeDislike(@Param("boardLikeDislike") BoardLikeDislike boardLikeDislike) {
         SQL sql = new SQL() {{
             DELETE_FROM("board_like_dislike");
-            WHERE("member_idx=#{boardLikeDislike.member_idx} AND board_idx=#{boardLikeDislike.board_idx} AND board_like_dislike=#{boardLikeDislike.board_like_dislike}");
+            WHERE("member_idx=#{boardLikeDislike.memberIdx} AND board_idx=#{boardLikeDislike.boardIdx} AND board_like_dislike=#{boardLikeDislike.boardLikeDislike}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -174,7 +174,7 @@ public class BoardSql {
         SQL sql = new SQL() {{
             SELECT("COUNT(*) AS `count`");
             FROM("board_like_dislike");
-            WHERE("member_idx=#{boardLikeDislike.member_idx} AND board_idx=#{boardLikeDislike.board_idx} AND board_like_dislike=#{boardLikeDislike.board_like_dislike}");
+            WHERE("member_idx=#{boardLikeDislike.memberIdx} AND board_idx=#{boardLikeDislike.boardIdx} AND board_like_dislike=#{boardLikeDislike.boardLikeDislike}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();
@@ -188,13 +188,13 @@ public class BoardSql {
     public String updateBoardLikeDislike(@Param("boardLikeDislike") BoardLikeDislike boardLikeDislike) {
         SQL sql = new SQL() {{
             UPDATE("board");
-            if (boardLikeDislike.getBoard_like_dislike().equals("0")) {
-                SET("board_dislike=(SELECT COUNT(*) FROM board_like_dislike WHERE board_idx=#{boardLikeDislike.board_idx} AND board_like_dislike='0')");
+            if (boardLikeDislike.getBoardLikeDislike().equals("0")) {
+                SET("board_dislike=(SELECT COUNT(*) FROM board_like_dislike WHERE board_idx=#{boardLikeDislike.boardIdx} AND board_like_dislike='0')");
             }
-            if (boardLikeDislike.getBoard_like_dislike().equals("1")) {
-                SET("board_like=(SELECT COUNT(*) FROM board_like_dislike WHERE board_idx=#{boardLikeDislike.board_idx} AND board_like_dislike='1')");
+            if (boardLikeDislike.getBoardLikeDislike().equals("1")) {
+                SET("board_like=(SELECT COUNT(*) FROM board_like_dislike WHERE board_idx=#{boardLikeDislike.boardIdx} AND board_like_dislike='1')");
             }
-            WHERE("board_idx=#{boardLikeDislike.board_idx}");
+            WHERE("board_idx=#{boardLikeDislike.boardIdx}");
         }};
         log.info("sql={}", sql.toString());
         return sql.toString();

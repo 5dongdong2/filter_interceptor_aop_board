@@ -40,11 +40,11 @@ public interface BoardMapper {
 
     /**
      * 상세페이지
-     * @param board_idx
+     * @param boardIdx
      * @return
      */
     @SelectProvider(type = BoardSql.class, method = "findBoardDetail")
-    public BoardDto findBoardDetail(@Param("board_idx") Long board_idx);
+    public BoardDto findBoardDetail(@Param("boardIdx") Long boardIdx);
 
     /**
      * 게시글 작성
@@ -55,10 +55,10 @@ public interface BoardMapper {
 
     /**
      * 게시글 삭제
-     * @param board_idx
+     * @param boardIdx
      */
     @SelectProvider(type = BoardSql.class, method = "deleteBoard")
-    public void deleteBoard(@Param("board_idx") Long board_idx);
+    public void deleteBoard(@Param("boardIdx") Long boardIdx);
 
     /**
      * 게시글 수정

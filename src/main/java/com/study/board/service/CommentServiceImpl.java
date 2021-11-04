@@ -7,6 +7,7 @@ import com.study.board.domain.comment.CommentWrite;
 import com.study.board.mapper.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,13 +27,13 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Override
-    public List<Comment> findComments(Long board_idx) {
-        return commentMapper.findComments(board_idx);
+    public List<Comment> findComments(Long boardIdx) {
+        return commentMapper.findComments(boardIdx);
     }
 
     @Override
-    public void deleteComment(Long comment_idx) {
-        commentMapper.deleteComment(comment_idx);
+    public void deleteComment(Long commentIdx) {
+        commentMapper.deleteComment(commentIdx);
     }
 
     @Override
@@ -40,6 +41,7 @@ public class CommentServiceImpl implements CommentService{
         commentMapper.updateComment(commentUpdate);
     }
 
+    @Transactional
     @Override
     public void likeComment(CommentLikeDislike commentLikeDislike) {
         int isAlreadyLike = commentMapper.checkLikeDislike(commentLikeDislike);
@@ -48,9 +50,10 @@ public class CommentServiceImpl implements CommentService{
         } else if (isAlreadyLike == 0) {
             commentMapper.insertLikeAndDislike(commentLikeDislike);
         }
-        commentMapper.updateCommentLike(commentLikeDislike.getComment_idx());
+        commentMapper.updateCommentLike(commentLikeDislike.getCommentIdx());
     }
 
+    @Transactional
     @Override
     public void dislikeComment(CommentLikeDislike commentLikeDislike) {
         int isAlreadyDislike = commentMapper.checkLikeDislike(commentLikeDislike);
@@ -59,6 +62,6 @@ public class CommentServiceImpl implements CommentService{
         } else if (isAlreadyDislike == 0) {
             commentMapper.insertLikeAndDislike(commentLikeDislike);
         }
-        commentMapper.updateCommentDislike(commentLikeDislike.getComment_idx());
+        commentMapper.updateCommentDislike(commentLikeDislike.getCommentIdx());
     }
 }

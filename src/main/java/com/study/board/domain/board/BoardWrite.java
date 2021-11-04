@@ -9,9 +9,9 @@ import lombok.ToString;
 @ToString
 public class BoardWrite {
 
-    private Long member_idx;
+    private Long memberIdx;
 
-    private String board_title;
+    private String boardTitle;
 
-    private String board_content;
+    private String boardContent;
 }

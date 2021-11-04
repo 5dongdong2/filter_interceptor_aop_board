@@ -8,6 +8,7 @@ import com.study.board.dto.board.SearchAndPagingDto;
 import com.study.board.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,35 +33,36 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public BoardDto findBoardDetail(Long board_idx) {
-        return boardMapper.findBoardDetail(board_idx);
+    public BoardDto findBoardDetail(Long boardIdx) {
+        return boardMapper.findBoardDetail(boardIdx);
     }
 
     @Override
     public void writeBoard(BoardWriteDto boardWriteDto) {
         BoardWrite boardWrite = BoardWrite.builder()
-                .member_idx(boardWriteDto.getMember_idx())
-                .board_title(boardWriteDto.getBoard_title())
-                .board_content(boardWriteDto.getBoard_content())
+                .memberIdx(boardWriteDto.getMemberIdx())
+                .boardTitle(boardWriteDto.getBoardTitle())
+                .boardContent(boardWriteDto.getBoardContent())
                 .build();
         boardMapper.insertBoard(boardWrite);
     }
 
     @Override
-    public void deleteBoard(Long board_idx) {
-        boardMapper.deleteBoard(board_idx);
+    public void deleteBoard(Long boardIdx) {
+        boardMapper.deleteBoard(boardIdx);
     }
 
     @Override
     public void updateBoard(BoardUpdateDto boardUpdateDto) {
         BoardUpdate boardUpdate = BoardUpdate.builder()
-                .board_idx(boardUpdateDto.getBoard_idx())
-                .board_title(boardUpdateDto.getBoard_title())
-                .board_content(boardUpdateDto.getBoard_content())
+                .boardIdx(boardUpdateDto.getBoardIdx())
+                .boardTitle(boardUpdateDto.getBoardTitle())
+                .boardContent(boardUpdateDto.getBoardContent())
                 .build();
         boardMapper.updateBoard(boardUpdate);
     }
 
+    @Transactional
     @Override
     public void likeAndDislikeBoard(BoardLikeDislike boardLikeDislike) {
         Integer check = boardMapper.checkLikeDislike(boardLikeDislike);

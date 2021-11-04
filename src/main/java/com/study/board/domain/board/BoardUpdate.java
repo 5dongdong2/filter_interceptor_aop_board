@@ -9,9 +9,9 @@ import lombok.ToString;
 @ToString
 public class BoardUpdate {
 
-    private Long board_idx;
+    private Long boardIdx;
 
-    private String board_title;
+    private String boardTitle;
 
-    private String board_content;
+    private String boardContent;
 }

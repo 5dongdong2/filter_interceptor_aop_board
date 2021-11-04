@@ -26,10 +26,10 @@ public interface BoardService {
 
     /**
      * 상세페이지
-     * @param board_idx
+     * @param boardIdx
      * @return
      */
-    public BoardDto findBoardDetail(Long board_idx);
+    public BoardDto findBoardDetail(Long boardIdx);
     
     /**
      * 게시글 작성
@@ -39,9 +39,9 @@ public interface BoardService {
 
     /**
      * 게시글 삭제
-     * @param board_idx
+     * @param boardIdx
      */
-    public void deleteBoard(Long board_idx);
+    public void deleteBoard(Long boardIdx);
 
     /**
      * 게시글 수정
