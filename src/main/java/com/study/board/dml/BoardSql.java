@@ -4,18 +4,14 @@ import com.study.board.domain.board.BoardLikeDislike;
 import com.study.board.domain.board.BoardUpdate;
 import com.study.board.domain.board.BoardWrite;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.jdbc.SQL;
 
 @Slf4j
+@Mapper
 public class BoardSql {
 
-    /**
-     * 게시글 리스트
-     * @param offset
-     * @param perPage
-     * @return
-     */
     public String findBoards(@Param("offset") Long offset, @Param("perPage") Long perPage) {
         SQL sql = new SQL()
                 .SELECT("b.*, m.member_name")
@@ -26,14 +22,6 @@ public class BoardSql {
         return sql.toString();
     }
 
-    /**
-     * 게시글 리스트(검색)
-     * @param searchType
-     * @param searchKeyword
-     * @param offset
-     * @param perPage
-     * @return
-     */
     public String findBoardsWithSearch(@Param("searchType") String searchType,
                                        @Param("searchKeyword") String searchKeyword,
                                        @Param("offset") Long offset,
@@ -49,12 +37,6 @@ public class BoardSql {
         return sql.toString();
     }
 
-    /**
-     * 검색 type에 따른 query 설정
-     * @param searchType
-     * @param searchKeyword
-     * @param sql
-     */
     private void querySelectorBySearchType(String searchType, String searchKeyword, SQL sql) {
         String[] type = {"b.board_title", "b.board_content", "m.member_name"};
         if (searchType.equals("title")) {
@@ -76,11 +58,6 @@ public class BoardSql {
         }
     }
 
-    /**
-     * 상세페이지
-     * @param boardIdx
-     * @return
-     */
     public String findBoardDetail(@Param("boardIdx") Long boardIdx) {
         SQL sql = new SQL() {{
             SELECT("b.*, m.member_name");
@@ -92,11 +69,6 @@ public class BoardSql {
         return sql.toString();
     }
 
-    /**
-     * 게시글 작성
-     * @param boardWrite
-     * @return
-     */
     public String insertBoard(@Param("boardWrite") BoardWrite boardWrite) {
         SQL sql = new SQL(){{
             INSERT_INTO("board");
@@ -107,11 +79,6 @@ public class BoardSql {
         return sql.toString();
     }
 
-    /**
-     * 게시글 삭제
-     * @param boardIdx
-     * @return
-     */
     public String deleteBoard(@Param("boardIdx") Long boardIdx) {
         SQL sql = new SQL() {{
             DELETE_FROM("board");
@@ -121,11 +88,6 @@ public class BoardSql {
         return sql.toString();
     }
 
-    /**
-     * 게시글 수정
-     * @param boardUpdate
-     * @return
-     */
     public String updateBoard(@Param("boardUpdate") BoardUpdate boardUpdate) {
         SQL sql = new SQL() {{
             UPDATE("board");
@@ -136,11 +98,6 @@ public class BoardSql {
         return sql.toString();
     }
 
-    /**
-     * 좋아요 및 싫어요
-     * @param boardLikeDislike
-     * @return
-     */
     public String insertLikeDislike(@Param("boardLikeDislike") BoardLikeDislike boardLikeDislike) {
         SQL sql = new SQL() {{
             INSERT_INTO("board_like_dislike");
@@ -151,11 +108,6 @@ public class BoardSql {
         return sql.toString();
     }
 
-    /**
-     * 좋아요 및 싫어요 취소
-     * @param boardLikeDislike
-     * @return
-     */
     public String deleteLikeDislike(@Param("boardLikeDislike") BoardLikeDislike boardLikeDislike) {
         SQL sql = new SQL() {{
             DELETE_FROM("board_like_dislike");
@@ -165,11 +117,6 @@ public class BoardSql {
         return sql.toString();
     }
 
-    /**
-     * 좋아요 및 싫어요 이력확인
-     * @param boardLikeDislike
-     * @return
-     */
     public String checkLikeDislike(@Param("boardLikeDislike") BoardLikeDislike boardLikeDislike) {
         SQL sql = new SQL() {{
             SELECT("COUNT(*) AS `count`");
@@ -180,11 +127,6 @@ public class BoardSql {
         return sql.toString();
     }
 
-    /**
-     * 좋아요 및 싫어요 수 update
-     * @param boardLikeDislike
-     * @return
-     */
     public String updateBoardLikeDislike(@Param("boardLikeDislike") BoardLikeDislike boardLikeDislike) {
         SQL sql = new SQL() {{
             UPDATE("board");

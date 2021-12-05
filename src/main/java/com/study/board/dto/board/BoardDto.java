@@ -15,7 +15,7 @@ public class BoardDto {
     private String boardContent;
     private Long boardLike;
     private Long boardDislike;
-    private Long board_views;
+    private Long boardViews;
     private Date boardCreateDate;
     private Date boardUpdateDate;
 

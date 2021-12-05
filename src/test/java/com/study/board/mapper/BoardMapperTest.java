@@ -2,8 +2,7 @@ package com.study.board.mapper;
 
 import com.study.board.domain.board.BoardWrite;
 import com.study.board.dto.board.BoardDto;
-import com.study.board.dto.board.SearchAndPagingDto;
-import org.assertj.core.api.Assertions;
+import com.study.board.dto.board.PageAndSearchDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +50,7 @@ class BoardMapperTest {
         Long perPage = 10L;
         String searchType = "total";
         String searchKeyword = "";
-        SearchAndPagingDto searchAndPagingDto = SearchAndPagingDto.builder()
+        PageAndSearchDto pageAndSearchDto = pageAndSearchDto.builder()
                 .offset(offset)
                 .perPage(perPage)
                 .searchType(searchType)

@@ -10,11 +10,6 @@ import org.apache.ibatis.jdbc.SQL;
 @Slf4j
 public class CommentSql {
 
-    /**
-     * 댓글 작성
-     * @param commentWrite
-     * @return
-     */
     public String insertComment(@Param("commentWrite") CommentWrite commentWrite) {
         SQL sql = new SQL() {{
             INSERT_INTO("comment");
@@ -25,11 +20,6 @@ public class CommentSql {
         return sql.toString();
     }
 
-    /**
-     * 댓글 조회
-     * @param boardIdx
-     * @return
-     */
     public String findComments(@Param("boardIdx") Long boardIdx) {
         SQL sql = new SQL() {{
             SELECT("c.*, m.member_name");
@@ -41,11 +31,6 @@ public class CommentSql {
         return sql.toString();
     }
 
-    /**
-     * 댓글 삭제
-     * @param commentIdx
-     * @return
-     */
     public String deleteComment(@Param("commentIdx") Long commentIdx) {
         SQL sql = new SQL() {{
             DELETE_FROM("comment");
@@ -55,10 +40,6 @@ public class CommentSql {
         return sql.toString();
     }
 
-    /**
-     * 댓글 수정
-     * @return
-     */
     public String updateComment(@Param("commentUpdate") CommentUpdate commentUpdate) {
         SQL sql = new SQL() {{
             UPDATE("comment");
@@ -69,10 +50,6 @@ public class CommentSql {
         return sql.toString();
     }
 
-    /**
-     * 댓글 좋아요 및 싫어요
-     * @return
-     */
     public String insertLikeAndDislike(@Param("commentLikeDislike") CommentLikeDislike commentLikeDislike) {
         SQL sql = new SQL() {{
             INSERT_INTO("comment_like_dislike");
@@ -83,11 +60,6 @@ public class CommentSql {
         return sql.toString();
     }
 
-    /**
-     * 댓글 좋아요 및 싫어요 취소
-     * @param commentLikeDislike
-     * @return
-     */
     public String deleteLikeAndDislike(@Param("commentLikeDislike") CommentLikeDislike commentLikeDislike) {
         SQL sql = new SQL() {{
             DELETE_FROM("comment_like_dislike");
@@ -97,11 +69,6 @@ public class CommentSql {
         return sql.toString();
     }
 
-    /**
-     * 댓글 좋아요 및 싫어요 이력확인
-     * @param commentLikeDislike
-     * @return
-     */
     public String checkLikeDislike(@Param("commentLikeDislike") CommentLikeDislike commentLikeDislike) {
         SQL sql = new SQL() {{
             SELECT("COUNT(*)");
@@ -112,11 +79,6 @@ public class CommentSql {
         return sql.toString();
     }
 
-    /**
-     * 좋아요 수 update
-     * @param commentIdx
-     * @return
-     */
     public String updateCommentLike(@Param("commentIdx") Long commentIdx) {
         SQL sql = new SQL() {{
             UPDATE("comment");
@@ -127,11 +89,6 @@ public class CommentSql {
         return sql.toString();
     }
 
-    /**
-     * 싫어요 수 update
-     * @param commentIdx
-     * @return
-     */
     public String updateCommentDislike(@Param("commentIdx") Long commentIdx) {
         SQL sql = new SQL() {{
             UPDATE("comment");

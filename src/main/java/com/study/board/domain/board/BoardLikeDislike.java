@@ -10,8 +10,6 @@ import lombok.ToString;
 public class BoardLikeDislike {
 
     private Long boardIdx;
-
     private Long memberIdx;
-
     private String boardLikeDislike;
 }

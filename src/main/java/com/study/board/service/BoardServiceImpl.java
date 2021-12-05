@@ -4,7 +4,7 @@ import com.study.board.domain.board.*;
 import com.study.board.dto.board.BoardDto;
 import com.study.board.dto.board.BoardUpdateDto;
 import com.study.board.dto.board.BoardWriteDto;
-import com.study.board.dto.board.SearchAndPagingDto;
+import com.study.board.dto.board.PageAndSearchDto;
 import com.study.board.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +23,13 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public List<BoardDto> findBoards(SearchAndPagingDto searchAndPagingDto) {
-        return boardMapper.findBoards(searchAndPagingDto.getOffset(), searchAndPagingDto.getPerPage());
+    public List<BoardDto> findBoards(PageAndSearchDto pageAndSearchDto) {
+        return boardMapper.findBoards(pageAndSearchDto.getOffset(), pageAndSearchDto.getPerPage());
     }
 
     @Override
-    public List<BoardDto> findBoardsWithSearch(SearchAndPagingDto searchAndPagingDto) {
-        return boardMapper.findBoardsWithSearch(searchAndPagingDto.getSearchType(), searchAndPagingDto.getSearchKeyword(), searchAndPagingDto.getOffset(), searchAndPagingDto.getPerPage());
+    public List<BoardDto> findBoardsWithSearch(PageAndSearchDto pageAndSearchDto) {
+        return boardMapper.findBoardsWithSearch(pageAndSearchDto.getSearchType(), pageAndSearchDto.getSearchKeyword(), pageAndSearchDto.getOffset(), pageAndSearchDto.getPerPage());
     }
 
     @Override

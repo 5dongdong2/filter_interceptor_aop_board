@@ -4,54 +4,23 @@ import com.study.board.domain.board.*;
 import com.study.board.dto.board.BoardDto;
 import com.study.board.dto.board.BoardUpdateDto;
 import com.study.board.dto.board.BoardWriteDto;
-import com.study.board.dto.board.SearchAndPagingDto;
+import com.study.board.dto.board.PageAndSearchDto;
 
 import java.util.List;
 
 public interface BoardService {
 
-    /**
-     * 게시글 리스트
-     * @param searchAndPagingDto
-     * @return
-     */
-    public List<BoardDto> findBoards(SearchAndPagingDto searchAndPagingDto);
+    public List<BoardDto> findBoards(PageAndSearchDto pageAndSearchDto);
 
-    /**
-     * 게시글 리스트 검색
-     * @param searchAndPagingDto
-     * @return
-     */
-    public List<BoardDto> findBoardsWithSearch(SearchAndPagingDto searchAndPagingDto);
+    public List<BoardDto> findBoardsWithSearch(PageAndSearchDto pageAndSearchDto);
 
-    /**
-     * 상세페이지
-     * @param boardIdx
-     * @return
-     */
     public BoardDto findBoardDetail(Long boardIdx);
     
-    /**
-     * 게시글 작성
-     * @param boardWriteDto
-     */
     public void writeBoard(BoardWriteDto boardWriteDto);
 
-    /**
-     * 게시글 삭제
-     * @param boardIdx
-     */
     public void deleteBoard(Long boardIdx);
 
-    /**
-     * 게시글 수정
-     * @param boardUpdateDto
-     */
     public void updateBoard(BoardUpdateDto boardUpdateDto);
 
-    /**
-     * 좋아요 및 싫어요
-     * @param boardLikeDislike
-     */
     public void likeAndDislikeBoard(BoardLikeDislike boardLikeDislike);
 }

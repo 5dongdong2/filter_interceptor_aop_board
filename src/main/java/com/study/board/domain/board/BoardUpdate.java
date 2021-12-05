@@ -10,8 +10,6 @@ import lombok.ToString;
 public class BoardUpdate {
 
     private Long boardIdx;
-
     private String boardTitle;
-
     private String boardContent;
 }

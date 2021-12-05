@@ -10,8 +10,6 @@ import lombok.ToString;
 public class CommentWrite {
 
     private Long boardIdx;
-
     private Long memberIdx;
-
     private String commentContent;
 }

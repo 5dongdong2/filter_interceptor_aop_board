@@ -5,9 +5,9 @@ import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@Builder
 @ToString
-public class SearchAndPagingDto {
+@Builder
+public class PageAndSearchDto {
     private String searchKeyword;
     private String searchType;
     private Long perPage;
